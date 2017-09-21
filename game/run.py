@@ -38,7 +38,7 @@ screen.blit(treasureImage, (treasureX, treasureY))
 frame = pygame.time.Clock()
 font = pygame.font.SysFont("comicsans", 85)
 level = 1
-lives = 1
+lives = 3
 
 movingRight = True
 
@@ -73,12 +73,8 @@ while not finished:
         if event.type == pygame.QUIT:
             finished = True
 
-    if lives == 0:
-        pygame.display.flip()
-        text = font.render("GAME OVER!!", True, (0, 0, 0, 0))
-        screen.blit(text, (450 - text.get_width() / 2, 300))
-        pygame.display.flip()
-    else:
+    if lives > 0:
+
         pressedKeys = pygame.key.get_pressed()
 
         enemyIndex = 0
@@ -110,10 +106,11 @@ while not finished:
         screen.blit(treasureImage, (treasureX, treasureY))
         screen.blit(playerImage, (x, y))
 
+        # check for collision with enemy
         for enemyX, enemyY, movingRight in enemies:
             screen.blit(enemyImage, (enemyX, enemyY))
             collisionWithEnemy, y = check_collision(x, y, enemyX, enemyY)
-            if collisionWithEnemy:
+            if collisionWithEnemy and lives > 1:
                 text = font.render("You've lost a life", True, (0, 0, 0, 0))
                 screen.blit(text, (450 - text.get_width() / 2, 300))
                 pygame.display.flip()
@@ -124,6 +121,8 @@ while not finished:
                 text = font.render("GAME OVER!!", True, (0, 0, 0, 0))
                 screen.blit(text, (450 - text.get_width() / 2, 300))
                 pygame.display.flip()
+                frame.tick(1)
+
 
         # check for collision
         collisionWithTreasure, y = check_collision(x, y, treasureX, treasureY)
@@ -135,7 +134,7 @@ while not finished:
             level += 1
             enemies.append((enemyX - 50 * level, enemyY - 50 * level, movingRight))
 
-    pygame.display.flip()
 
-    # change/sleep framerate
-    frame.tick(30)
+        pygame.display.flip()
+        # change/sleep framerate
+        frame.tick(30)
