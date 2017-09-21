@@ -123,7 +123,6 @@ while not finished:
                 pygame.display.flip()
                 frame.tick(1)
 
-
         # check for collision
         collisionWithTreasure, y = check_collision(x, y, treasureX, treasureY)
         if collisionWithTreasure:
@@ -133,7 +132,6 @@ while not finished:
             frame.tick(1)
             level += 1
             enemies.append((enemyX - 50 * level, enemyY - 50 * level, movingRight))
-
 
         pygame.display.flip()
         # change/sleep framerate
