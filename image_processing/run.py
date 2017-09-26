@@ -1,15 +1,9 @@
-import numpy
+import cv2
 
-a = numpy.array([
-    [17, 8, 3],
-    [0, -3, 10],
-    [7, -100, 8]
-])
+img = cv2.imread('test.jpg')
 
-b = numpy.array([
-    [3, 8, 7],
-    [0, -5, 20],
-    [7, -10, 8]
-])
+print img.shape
 
-print a + b
+cv2.imshow('test', img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
